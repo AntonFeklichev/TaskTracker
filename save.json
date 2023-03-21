@@ -1,0 +1,26 @@
+{
+  "fileName": "save.json",
+  "nextId": 3,
+  "historyManager": {
+    "historyNodeMap": {},
+    "customLinkedList": {
+      "size": 0
+    }
+  },
+  "taskMap": {
+    "1": {
+      "name": "lesson",
+      "description": "finish lesson",
+      "id": 1,
+      "status": "NEW"
+    },
+    "2": {
+      "name": "lesson2",
+      "description": "finish lesson2",
+      "id": 2,
+      "status": "NEW"
+    }
+  },
+  "epicMap": {},
+  "subTaskMap": {}
+}
