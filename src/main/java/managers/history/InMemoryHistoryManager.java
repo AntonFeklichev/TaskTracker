@@ -10,8 +10,8 @@ import java.util.Map;
 public class InMemoryHistoryManager implements HistoryManager {
 
 
-    private Map<Integer, Node<Task>> historyNodeMap = new HashMap<>();
-    private CustomLinkedList customLinkedList = new CustomLinkedList();
+    private final Map<Integer, Node<Task>> historyNodeMap = new HashMap<>();
+    private final CustomLinkedList customLinkedList = new CustomLinkedList();
 
 
     @Override
@@ -38,6 +38,7 @@ public class InMemoryHistoryManager implements HistoryManager {
     public List<Task> getHistory() {
         return customLinkedList.getTasks();
     }
+
 
     private class CustomLinkedList {
 
@@ -73,9 +74,12 @@ public class InMemoryHistoryManager implements HistoryManager {
             if (node != null) {
                 if (node == head) {
                     head = node.next;
+                    return;
                 }
                 if (node == tail) {
                     tail = node.prev;
+                    tail.next = null;
+                    return;
                 } else {
                     node.prev.next = node.next;
                     node.next.prev = node.prev;
@@ -84,6 +88,8 @@ public class InMemoryHistoryManager implements HistoryManager {
             node = null;
             size--;
         }
+
+
     }
 
     public static class Node<T> {

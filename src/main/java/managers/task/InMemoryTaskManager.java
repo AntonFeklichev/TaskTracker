@@ -175,6 +175,8 @@ public class InMemoryTaskManager implements TaskManager {
 
         if (doneCounter == subTaskList.size()) {
             epic.setStatus(TaskStatus.DONE);
+        } else {
+            epic.setStatus(TaskStatus.IN_PROGRESS);
         }
 
     }

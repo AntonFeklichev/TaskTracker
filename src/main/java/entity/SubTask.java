@@ -1,7 +1,5 @@
 package entity;
 
-import entity.Task;
-
 public class SubTask extends Task {
 
     private int epicId;

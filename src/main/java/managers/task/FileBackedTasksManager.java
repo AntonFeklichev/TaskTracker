@@ -7,11 +7,8 @@ import entity.Task;
 import exceptions.ManagerSaveException;
 
 import java.io.*;
-import java.util.List;
 
 public class FileBackedTasksManager extends InMemoryTaskManager {
-
-
 
 
     private final String fileName;
@@ -26,7 +23,6 @@ public class FileBackedTasksManager extends InMemoryTaskManager {
             Gson gson = new Gson();
             String json = gson.toJson(this);
             writer.write(json);
-
 
 
         } catch (IOException exception) {
