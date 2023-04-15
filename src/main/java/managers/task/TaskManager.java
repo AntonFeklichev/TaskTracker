@@ -5,6 +5,7 @@ import entity.SubTask;
 import entity.Task;
 
 import java.util.List;
+import java.util.Set;
 
 public interface TaskManager {
 
@@ -52,6 +53,8 @@ public interface TaskManager {
     void getNewEpicStatus(Epic epic);
 
     List<Task> getHistory();
+
+    List<Task> getPrioritizedTasks();
 
 
 }

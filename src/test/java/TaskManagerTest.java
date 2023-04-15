@@ -2,10 +2,12 @@ import entity.Epic;
 import entity.SubTask;
 import entity.Task;
 import entity.TaskStatus;
+import exceptions.IntersectionException;
 import managers.task.TaskManager;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -199,6 +201,56 @@ public abstract class TaskManagerTest<T extends TaskManager> {
         assertTrue(list.isEmpty());
     }
 
+    @Test
+    public void epicStartAndEndTimeTest() {
+        manager.addEpic(epic);
+
+        SubTask subTask2 = new SubTask("subTask2",
+                "test",
+                2,
+                TaskStatus.NEW,
+                10,
+                LocalDateTime.now().plusDays(300),
+                epic.getId()
+        );
+
+        manager.addSubTask(subTask2);
+
+        SubTask subTask3 = new SubTask("subTask3",
+                "test",
+                3,
+                TaskStatus.NEW,
+                160,
+                LocalDateTime.now().plusDays(250),
+                epic.getId()
+        );
+        //assertEquals(subTask2.getStartTime() , epic.getStartTime());
+        //assertEquals(subTask2.getDuration(), epic.getDuration());
+        //assertEquals(subTask2.getEndTime(), epic.getEndTime());
+
+
+        manager.addSubTask(subTask3);
+
+
+        //assertEquals(subTask2.getStartTime() , epic.getStartTime());
+        //assertEquals(subTask2.getDuration() + subTask3.getDuration() , epic.getDuration());
+        //assertEquals(subTask3.getEndTime(), epic.getEndTime());
+
+        SubTask subTask4 = new SubTask("subTask4",
+                "test",
+                4,
+                TaskStatus.NEW,
+                160,
+                LocalDateTime.now().plusDays(250),
+                epic.getId()
+        );
+
+
+        assertThrows(IntersectionException.class, () -> manager.addSubTask(subTask4));
+
+        assertEquals(List.of(epic,subTask3,subTask2), manager.getPrioritizedTasks());
+
+    }
 
 }
 
