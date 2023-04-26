@@ -145,7 +145,7 @@ public abstract class TaskManagerTest<T extends TaskManager> {
     @Test
     public void removeTaskTest() {
         manager.addTask(task);
-        manager.removeTask(task);
+        manager.removeTask(task.getId());
         List<Task> list = manager.getAllTask();
         assertFalse(list.contains(task));
     }
@@ -153,7 +153,7 @@ public abstract class TaskManagerTest<T extends TaskManager> {
     @Test
     public void removeEpicTest() {
         manager.addEpic(epic);
-        manager.removeEpic(epic);
+        manager.removeEpic(epic.getId());
         List<Epic> list = manager.getAllEpic();
         assertFalse(list.contains(epic));
     }
@@ -161,7 +161,7 @@ public abstract class TaskManagerTest<T extends TaskManager> {
     @Test
     public void removeSubTaskTest() {
         manager.addSubTask(subTask);
-        manager.removeSubTask(subTask);
+        manager.removeSubTask(subTask.getId());
         List<SubTask> list = manager.getAllSubTask();
         assertFalse(list.contains(subTask));
     }
@@ -170,7 +170,7 @@ public abstract class TaskManagerTest<T extends TaskManager> {
     public void getAllSubTaskByEpicTest() {
         manager.addEpic(epic);
         manager.addSubTask(subTask);
-        List<SubTask> list = manager.getAllSubTaskByEpic(epic);
+        List<SubTask> list = manager.getAllSubTaskByEpic(epic.getId());
         assertTrue(list.contains(subTask));
     }
 
@@ -180,7 +180,7 @@ public abstract class TaskManagerTest<T extends TaskManager> {
         manager.addEpic(epic);
 
 
-        List<SubTask> emptyListByEpic = manager.getAllSubTaskByEpic(epic);
+        List<SubTask> emptyListByEpic = manager.getAllSubTaskByEpic(epic.getId());
 
         assertTrue(emptyListByEpic.isEmpty());
         assertEquals(TaskStatus.NEW, epic.getStatus());

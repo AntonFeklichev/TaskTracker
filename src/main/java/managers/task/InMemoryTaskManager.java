@@ -149,26 +149,26 @@ public class InMemoryTaskManager implements TaskManager {
     }
 
     @Override
-    public void removeTask(Task task) {
-        taskMap.remove(task.getId());
+    public void removeTask(int id) {
+        taskMap.remove(id);
     }
 
     @Override
-    public void removeEpic(Epic epic) {
-        epicMap.remove(epic.getId());
+    public void removeEpic(int id) {
+        epicMap.remove(id);
     }
 
     @Override
-    public void removeSubTask(SubTask subTask) {
-        subTaskMap.remove(subTask.getId());
+    public void removeSubTask(int id) {
+        subTaskMap.remove(id);
     }
 
     @Override
-    public List<SubTask> getAllSubTaskByEpic(Epic epic) {
+    public List<SubTask> getAllSubTaskByEpic(int id) {
 
         List<SubTask> subTaskList = new ArrayList<>();
         for (SubTask subTask : subTaskMap.values()) {
-            if (subTask.getEpicId() == epic.getId()) {
+            if (subTask.getEpicId() == id) {
                 subTaskList.add(subTask);
             }
         }
@@ -179,7 +179,7 @@ public class InMemoryTaskManager implements TaskManager {
     public void getNewEpicStatus(Epic epic) {
         int newCounter = 0;
         int doneCounter = 0;
-        List<SubTask> subTaskList = getAllSubTaskByEpic(epic);
+        List<SubTask> subTaskList = getAllSubTaskByEpic(epic.getId());
         for (SubTask subTask : subTaskList) {
             if (subTask.getStatus() == TaskStatus.NEW) {
                 newCounter++;
@@ -223,7 +223,7 @@ public class InMemoryTaskManager implements TaskManager {
     } */
 
     private void setEpicDurationStream(Epic epic) {
-        List<SubTask> subTaskList = getAllSubTaskByEpic(epic);
+        List<SubTask> subTaskList = getAllSubTaskByEpic(epic.getId());
         int sum = subTaskList.stream()
                 .mapToInt(Task::getDuration)
                 .sum();
@@ -231,7 +231,7 @@ public class InMemoryTaskManager implements TaskManager {
     }
 
     private void setEpicStartTime(Epic epic) {
-        LocalDateTime startTime = getAllSubTaskByEpic(epic).stream()
+        LocalDateTime startTime = getAllSubTaskByEpic(epic.getId()).stream()
                 .sorted(Comparator.comparing(Task::getStartTime))
                 .findFirst()
                 .get()
@@ -240,7 +240,7 @@ public class InMemoryTaskManager implements TaskManager {
     }
 
     public void setEpicEndTime(Epic epic) {
-        LocalDateTime endTime = getAllSubTaskByEpic(epic).stream()
+        LocalDateTime endTime = getAllSubTaskByEpic(epic.getId()).stream()
                 .sorted(Comparator.comparing(Task::getEndTime).reversed())
                 .findFirst()
                 .get()

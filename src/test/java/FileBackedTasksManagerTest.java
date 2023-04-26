@@ -28,7 +28,7 @@ public class FileBackedTasksManagerTest extends TaskManagerTest<FileBackedTasksM
 
         assertTrue(manager.getHistory().isEmpty());
         assertEquals(manager.getEpic(1), fileBackedTasksManager2.getEpic(1));
-        assertTrue(manager.getAllSubTaskByEpic(epic).isEmpty());
+        assertTrue(manager.getAllSubTaskByEpic(epic.getId()).isEmpty());
 
 
     }

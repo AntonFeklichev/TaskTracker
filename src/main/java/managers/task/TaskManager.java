@@ -5,7 +5,6 @@ import entity.SubTask;
 import entity.Task;
 
 import java.util.List;
-import java.util.Set;
 
 public interface TaskManager {
 
@@ -42,13 +41,13 @@ public interface TaskManager {
 
     Boolean updateSubTask(SubTask subTask);
 
-    void removeTask(Task task);
+    void removeTask(int id);
 
-    void removeEpic(Epic epic);
+    void removeEpic(int id);
 
-    void removeSubTask(SubTask subTask);
+    void removeSubTask(int id);
 
-    List<SubTask> getAllSubTaskByEpic(Epic epic);
+    List<SubTask> getAllSubTaskByEpic(int id);
 
     void getNewEpicStatus(Epic epic);
 
